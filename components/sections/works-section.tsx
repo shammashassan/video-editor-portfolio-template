@@ -9,7 +9,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { portfolioData, type ProjectItem } from "@/lib/data";
 import { Play, Clock, ArrowUpRight, MessageCircle, X } from "lucide-react";
 
@@ -98,21 +97,26 @@ export function WorksSection() {
           {selectedProject && (
             <DialogContent
               showCloseButton={false}
-              className="w-[95vw] sm:w-[92vw] p-0 overflow-hidden flex flex-col transition-all duration-300 shadow-2xl"
+              className="!p-0 !gap-0 overflow-hidden flex flex-col transition-all duration-300 shadow-2xl"
               style={{
+                display: "flex",
+                flexDirection: "column",
+                padding: 0,
+                gap: 0,
                 borderRadius: "28px",
                 background: "#f7f6f2",
                 border: "1px solid rgba(7,6,7,0.12)",
                 maxWidth: selectedProject.aspect === "portrait" ? "min(460px, 95vw)" : "min(960px, 95vw)",
-                maxHeight: "92dvh",
+                maxHeight: "90dvh",
+                height: "auto",
               }}
             >
               {/* Video Player Area — Adapts responsively to mobile vs desktop screens */}
               <div
                 className={`relative w-full bg-black overflow-hidden flex items-center justify-center shrink-0 select-none ${
                   selectedProject.aspect === "portrait"
-                    ? "aspect-[9/14] max-h-[48dvh] sm:max-h-[62vh]"
-                    : "aspect-video max-h-[40dvh] sm:max-h-[65vh]"
+                    ? "aspect-[9/14] max-h-[42dvh] sm:max-h-[58vh]"
+                    : "aspect-video max-h-[36dvh] sm:max-h-[62vh]"
                 }`}
               >
                 {/* Ambient blur backdrop for portrait videos */}
@@ -164,8 +168,11 @@ export function WorksSection() {
                 </DialogClose>
               </div>
 
-              {/* Scrollable Cinema Details Strip using ScrollArea */}
-              <ScrollArea className="flex-1 min-h-0 w-full overflow-hidden">
+              {/* Scrollable Cinema Details Strip — Native momentum-enabled scroll container */}
+              <div
+                className="flex-1 min-h-0 w-full overflow-y-auto overscroll-contain [scrollbar-width:thin] [scrollbar-color:rgba(7,6,7,0.25)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-obsidian/20"
+                style={{ WebkitOverflowScrolling: "touch" }}
+              >
                 <div className="p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3">
                   {/* Header row: Title + Client/Year + Commission CTA + Close Button */}
                   <div
@@ -245,7 +252,7 @@ export function WorksSection() {
                     ))}
                   </div>
                 </div>
-              </ScrollArea>
+              </div>
             </DialogContent>
           )}
         </Dialog>
