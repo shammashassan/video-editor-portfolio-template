@@ -23,7 +23,7 @@ export function WorksSection() {
 
   return (
     <section id="works" className="py-16 sm:py-24 px-4 sm:px-6 md:px-8">
-      <div className="max-w-[1280px] mx-auto flex flex-col gap-10 sm:gap-12">
+      <div className="max-w-7xl mx-auto flex flex-col gap-10 sm:gap-12">
 
         {/* Header + Filter Row */}
         <div
@@ -47,7 +47,7 @@ export function WorksSection() {
               border: "1px solid rgba(7,6,7,0.1)",
             }}
           >
-            <div className="flex items-center gap-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-1 py-0.5">
+            <div className="flex items-center gap-1 overflow-x-auto scrollbar-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden px-1 py-0.5">
               {portfolioData.categories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
@@ -97,7 +97,7 @@ export function WorksSection() {
           {selectedProject && (
             <DialogContent
               showCloseButton={false}
-              className="!p-0 !gap-0 overflow-hidden flex flex-col transition-all duration-300 shadow-2xl"
+              className="p-0! gap-0! overflow-hidden flex flex-col transition-all duration-300 shadow-2xl"
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -113,11 +113,10 @@ export function WorksSection() {
             >
               {/* Video Player Area — Adapts responsively to mobile vs desktop screens */}
               <div
-                className={`relative w-full bg-black overflow-hidden flex items-center justify-center shrink-0 select-none ${
-                  selectedProject.aspect === "portrait"
-                    ? "aspect-[9/14] max-h-[42dvh] sm:max-h-[58vh]"
+                className={`relative w-full bg-black overflow-hidden flex items-center justify-center shrink-0 select-none ${selectedProject.aspect === "portrait"
+                    ? "aspect-9/14 max-h-[42dvh] sm:max-h-[58vh]"
                     : "aspect-video max-h-[36dvh] sm:max-h-[62vh]"
-                }`}
+                  }`}
               >
                 {/* Ambient blur backdrop for portrait videos */}
                 {selectedProject.aspect === "portrait" && (
@@ -170,7 +169,7 @@ export function WorksSection() {
 
               {/* Scrollable Cinema Details Strip — Native momentum-enabled scroll container */}
               <div
-                className="flex-1 min-h-0 w-full overflow-y-auto overscroll-contain [scrollbar-width:thin] [scrollbar-color:rgba(7,6,7,0.25)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-obsidian/20"
+                className="flex-1 min-h-0 w-full overflow-y-auto overscroll-contain scrollbar-thin [scrollbar-color:rgba(7,6,7,0.25)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-obsidian/20"
                 style={{ WebkitOverflowScrolling: "touch" }}
               >
                 <div className="p-4 sm:p-5 flex flex-col gap-2.5 sm:gap-3">
@@ -276,7 +275,7 @@ function ProjectCard({
 
   const handleMouseEnter = () => {
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
+      videoRef.current.play().catch(() => { });
     }
   };
 
@@ -308,7 +307,7 @@ function ProjectCard({
     >
       {/* Thumbnail */}
       <div
-        className={`relative aspect-video w-full overflow-hidden bg-gradient-to-tr ${project.posterGradient}`}
+        className={`relative aspect-video w-full overflow-hidden bg-linear-to-tr ${project.posterGradient}`}
       >
         {/* Real video preview */}
         <video
