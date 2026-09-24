@@ -5,11 +5,12 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import {
   Dialog,
   DialogContent,
+  DialogClose,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
 import { portfolioData, type ProjectItem } from "@/lib/data";
-import { Play, Clock, ArrowUpRight, MessageCircle } from "lucide-react";
+import { Play, Clock, ArrowUpRight, MessageCircle, X } from "lucide-react";
 
 export function WorksSection() {
   const [activeCategory, setActiveCategory] = React.useState<string>("all");
@@ -95,6 +96,7 @@ export function WorksSection() {
         >
           {selectedProject && (
             <DialogContent
+              showCloseButton={false}
               className="w-[94vw] p-0 overflow-hidden flex flex-col transition-all duration-300"
               style={{
                 borderRadius: "36px",
@@ -145,11 +147,24 @@ export function WorksSection() {
                     {selectedProject.duration}
                   </span>
                 </div>
+
+                {/* Floating Frosted Glass Close Button — High Contrast Top Right */}
+                <DialogClose
+                  render={
+                    <button
+                      type="button"
+                      className="absolute top-3 right-3 z-30 size-9 sm:size-10 flex items-center justify-center rounded-full bg-obsidian/80 hover:bg-obsidian text-chalk hover:text-ember backdrop-blur-md border border-chalk/20 shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer focus:outline-none"
+                      aria-label="Close dialog"
+                    />
+                  }
+                >
+                  <X className="size-4 sm:size-5" />
+                </DialogClose>
               </div>
 
               {/* Compact Cinema Details Strip (~22% of modal view) */}
               <div className="p-4 sm:p-5 flex flex-col gap-2.5 overflow-y-auto">
-                {/* Header row: Title + Client/Year + Commission CTA */}
+                {/* Header row: Title + Client/Year + Commission CTA + Close Button */}
                 <div
                   className="flex items-center justify-between gap-3 pb-2.5"
                   style={{ borderBottom: "1px solid rgba(7,6,7,0.08)" }}
@@ -165,16 +180,33 @@ export function WorksSection() {
                     </DialogTitle>
                   </div>
 
-                  <a
-                    href={`${portfolioData.socials.whatsapp}?text=Hi%20Shahan,%20I'd%20love%20a%20cut%20like%20"${encodeURIComponent(selectedProject.title)}"`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1.5 px-3.5 h-7 text-[10px] uppercase tracking-wider font-semibold text-obsidian bg-ember hover:bg-ember/90 active:scale-[0.98] transition-all shrink-0"
-                    style={{ borderRadius: "800px" }}
-                  >
-                    <MessageCircle className="size-3" />
-                    <span>Commission</span>
-                  </a>
+                  <div className="flex items-center gap-2 shrink-0">
+                    <a
+                      href={`${portfolioData.socials.whatsapp}?text=Hi%20Shahan,%20I'd%20love%20a%20cut%20like%20"${encodeURIComponent(selectedProject.title)}"`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center gap-1.5 px-3 sm:px-3.5 h-7 text-[10px] uppercase tracking-wider font-semibold text-obsidian bg-ember hover:bg-ember/90 active:scale-[0.98] transition-all"
+                      style={{ borderRadius: "800px" }}
+                    >
+                      <MessageCircle className="size-3" />
+                      <span>Commission</span>
+                    </a>
+
+                    {/* Bottom Close Button for easy one-hand mobile thumb access */}
+                    <DialogClose
+                      render={
+                        <button
+                          type="button"
+                          className="flex items-center gap-1 px-2.5 sm:px-3 h-7 text-[10px] uppercase tracking-wider font-semibold text-obsidian/75 hover:text-obsidian bg-obsidian/10 hover:bg-obsidian/15 active:scale-[0.98] transition-all cursor-pointer"
+                          style={{ borderRadius: "800px" }}
+                          aria-label="Close dialog"
+                        />
+                      }
+                    >
+                      <X className="size-3" />
+                      <span>Close</span>
+                    </DialogClose>
+                  </div>
                 </div>
 
                 {/* Description */}
